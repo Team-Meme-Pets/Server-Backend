@@ -18,7 +18,7 @@ print "Connected\n"
 #cur = conn.cursor()
 
 @app.route("/")
-def hello():
+def index():
     cursor = conn.cursor()
     query = 'SELECT * FROM petmodel ORDER BY pet_id ASC'
     cursor.execute(query)
@@ -28,6 +28,75 @@ def hello():
         print data
     cursor.close();
     
-    return "IT'S WORKING THE WORLD SAYS HELLO."
+    return "IT'S WORKING I AM GETTING STRONGER."
+
+#Authenticates the login
+@app.route('/loginAuth', methods=['GET', 'POST'])
+def loginAuth():
+    #grabs information from the forms
+    username = request.form['Username']
+    password = request.form['Password']
+    
+    #cursor used to send queries
+    cursor = conn.cursor()
+    #executes query
+    query = 'SELECT password FROM UserAccount WHERE username = %s'
+    cursor.execute(query, (username))
+    
+    #stores the results in a variable
+    data = cursor.fetchone()
+    if(not data):
+        error = 'Invalid login or username'
+        return error
+    #use fetchall() if you are expecting more than 1 data row
+    
+    cursor.close()
+    error = None
+
+    if(sha256_crypt.verify(password, data['password'])):
+        #creates a session for the the user
+        #session is a built in
+        session['username'] = username
+        return redirect(url_for('index'))
+    else:
+        #returns an error message to the html page
+        error = 'Invalid login or username'
+        return error
+
+#Authenticates the register
+@app.route('/registerAuth', methods=['GET', 'POST'])
+def registerAuth():
+    #grabs information from the forms
+    username = request.form['Username']
+    password = request.form['Password']
+    email = request.form['e-mail']
+    
+    password2 = sha256_crypt.encrypt(password)
+    #cursor used to send queries
+    cursor = conn.cursor()
+    #executes query
+    query = 'SELECT * FROM UserAccount WHERE username = %s'
+    cursor.execute(query, (username))
+    
+    #stores the results in a variable
+    data = cursor.fetchone()
+    #use fetchall() if you are expecting more than 1 data row
+    error = None
+    if(data):
+        #If the previous query returns data, then user exists
+        error = "This user already exists"
+        return processOutput(error)
+    else:
+        ins = 'INSERT INTO UserAccount VALUES(%s, %s, %s)'
+        cursor.execute(ins, (username, password2, email))
+        conn.commit()
+        cursor.close()
+        return processOutput(url_for('index'))
+
+def logout():
+    session.pop('username')
+    return redirect('/')
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=9800)
+	
