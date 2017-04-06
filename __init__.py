@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, session, url_for, redirect
 import hashlib
 
 import psycopg2
-from sshtunnel import SSHTunnelForwarder
 
 from passlib.hash import sha256_crypt
 import datetime
