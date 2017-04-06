@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 #configure postgreSQL
 try:
-    conn = psycopg2.connect(database="code", user="bc1691",password="StarszndFaults", host="0.0.0.0", port=9800)
+    conn = psycopg2.connect(database="code", user="bc1691",password="StarszndFaults", host="0.0.0.0", port=55432)
 except:
     print "Disaster"
 #cur = conn.cursor()
