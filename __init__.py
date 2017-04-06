@@ -41,7 +41,7 @@ def loginAuth():
     cursor = conn.cursor()
     #executes query
     query = 'SELECT password FROM UserAccount WHERE username = %s'
-    cursor.execute(query, (username))
+    cursor.execute(query, (username,))
     
     #stores the results in a variable
     data = cursor.fetchone()
@@ -77,7 +77,7 @@ def registerAuth():
     cursor = conn.cursor()
     #executes query
     query = 'SELECT * FROM UserAccount WHERE username = %s'
-    cursor.execute(query, (username))
+    cursor.execute(query, (username,))
     
     #stores the results in a variable
     data = cursor.fetchone()
