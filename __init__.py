@@ -69,8 +69,9 @@ def registerAuth():
     #grabs information from the forms
     username = request.form['Username']
     password = request.form['Password']
-    email = request.form['e-mail']
-    
+    email = request.form['email']
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+	
     password2 = sha256_crypt.encrypt(password)
     #cursor used to send queries
     cursor = conn.cursor()
@@ -85,13 +86,13 @@ def registerAuth():
     if(data):
         #If the previous query returns data, then user exists
         error = "This user already exists"
-        return processOutput(error)
+        return error
     else:
-        ins = 'INSERT INTO UserAccount VALUES(%s, %s, %s)'
-        cursor.execute(ins, (username, password2, email))
+        ins = 'INSERT INTO UserAccount VALUES(%s, %s, %s, %s, %s)'
+        cursor.execute(ins, (username, password2, email, timestamp, timestamp))
         conn.commit()
         cursor.close()
-        return processOutput(url_for('index'))
+        return redirect(url_for('index'))
 
 def logout():
     session.pop('username')
