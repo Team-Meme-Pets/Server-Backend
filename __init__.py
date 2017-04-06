@@ -10,9 +10,13 @@ app = Flask(__name__)
 
 #configure postgreSQL
 try:
-    conn = psycopg2.connect(database="code", user="bc1691",password="StarszndFaults", host="0.0.0.0", port=55432)
+    conn_string = "host='0.0.0.0', dbname='code', user='bc1691',password='StarszndFaults'"
+    print "Connecting to database\n	->%s" % (conn_string)
+    conn = psycopg2.connect(conn_string)
 except:
     print "Disaster"
+    
+print "Connected!\n"
 #cur = conn.cursor()
 
 @app.route("/")
