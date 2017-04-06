@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request, session, url_for, redirect
 import hashlib
 
@@ -9,14 +10,11 @@ import datetime
 app = Flask(__name__)
 
 #configure postgreSQL
-try:
-    conn_string = "host='0.0.0.0', dbname='code', user='bc1691',password='StarszndFaults'"
-    print "Connecting to database\n	->%s" % (conn_string)
-    conn = psycopg2.connect(conn_string)
-except:
-    print "Disaster"
-    
-print "Connected!\n"
+conn_string = "host='0.0.0.0' dbname='code' user='bc1691' password='StarszndFaults'"
+print "Connecting..."
+conn = psycopg2.connect(conn_string)
+
+print "Connected\n"
 #cur = conn.cursor()
 
 @app.route("/")
