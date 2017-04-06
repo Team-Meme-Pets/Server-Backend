@@ -93,7 +93,8 @@ def registerAuth():
         conn.commit()
         cursor.close()
         return redirect(url_for('index'))
-
+		
+@app.route('/logout')
 def logout():
     session.pop('username')
     return redirect('/')
