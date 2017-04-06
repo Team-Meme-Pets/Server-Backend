@@ -20,7 +20,7 @@ print "Connected\n"
 @app.route("/")
 def index():
     cursor = conn.cursor()
-    query = 'SELECT * FROM petmodel ORDER BY pet_id ASC'
+    query = 'SELECT * FROM petmodel ORDER BY pet_name ASC'
     cursor.execute(query)
     
     data = cursor.fetchone()
