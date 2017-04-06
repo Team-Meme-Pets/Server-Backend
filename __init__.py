@@ -10,7 +10,7 @@ import datetime
 app = Flask(__name__)
 
 #configure postgreSQL
-conn_string = "host='0.0.0.0' dbname='code' user='bc1691' password='StarszndFaults'"
+conn_string = "host='0.0.0.0' dbname='bc1691' user='bc1691' password='StarszndFaults'"
 print "Connecting..."
 conn = psycopg2.connect(conn_string)
 
