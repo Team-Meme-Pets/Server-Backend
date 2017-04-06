@@ -17,6 +17,15 @@ except:
 
 @app.route("/")
 def hello():
+    cursor = conn.cursor()
+    query = 'SELECT * FROM petmodel ORDER BY pet_id ASC'
+    cursor.execute(query)
+    
+    data = cursor.fetchone()
+    if(data):
+        print data
+    cursor.close();
+    
     return "IT'S WORKING THE WORLD SAYS HELLO."
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=9800)
