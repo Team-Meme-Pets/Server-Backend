@@ -53,7 +53,8 @@ def loginAuth():
     cursor.close()
     error = None
 
-    if(sha256_crypt.verify(password, data[1])):
+	_username, _password, _email, _created_on, _last_login = data
+    if(sha256_crypt.verify(password, _password)):
         #creates a session for the the user
         #session is a built in
         session['username'] = username
