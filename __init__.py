@@ -60,7 +60,7 @@ def loginAuth():
 		#session is a built in
 		session['username'] = username
 		print("Login Success: %s", username)
-		return redirect(url_for('index'))
+		return "Success"
 	else:
 		#returns an error message to the html page
 		error = 'Invalid login or username'
@@ -98,7 +98,7 @@ def registerAuth():
 		conn.commit()
 		cursor.close()
 		print("Reg Success: %s", username)
-		return redirect(url_for('index'))
+		return "Welcome"
 
 #send user's longitude and latitude data
 @app.route('/sendLoc', methods=['GET', 'POST'])
@@ -129,14 +129,14 @@ def sendLoc():
 			cursor.execute(ins, (lat, lon, username))
 			conn.commit()
 			cursor.close()
-			return redirect(url_for('index'))
+			return "Success"
 		else:
 			#If the user doesn't exist add them
 			ins = 'INSERT INTO Location VALUES(%s, %s, %s)'
 			cursor.execute(ins, (username, lon, lat))
 			conn.commit()
 			cursor.close()
-			return redirect(url_for('index'))
+			return "Success"
 	else:
 		return redirect(url_for('index'))
 	
@@ -205,7 +205,7 @@ def addPet():
 			cursor.execute(ins, (username, pet_name))
 			conn.commit()
 			cursor.close()
-			return redirect(url_for('index'))
+			return "Success"
 	else:
 		return redirect(url_for('index'))
 
@@ -245,7 +245,7 @@ def viewPets():
 def logout():
 	session.pop('username', None)
 	print("Logout Success")
-	return redirect(url_for('index'))
+	return "Success"
 
 app.secret_key = 'ihaveasecret'
 if __name__ == "__main__":
