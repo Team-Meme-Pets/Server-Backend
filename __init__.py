@@ -243,7 +243,7 @@ def viewPets():
 def logout():
 	session.pop('username')
 	print("Logout Success")
-	return redirect('/')
+	return redirect(url_for('index'))
 
 app.secret_key = 'ihaveasecret'
 if __name__ == "__main__":
