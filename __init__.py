@@ -153,6 +153,11 @@ def getNearbyUsers():
 			cursor.close()
 			
 			#this should really be JSON
+            # response = []
+            # for row in data:
+                
+
+            #hopefully this works
 			return data
 		else:
 			error = "Try reloading the app"
