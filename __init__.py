@@ -166,7 +166,7 @@ def getNearbyUsers():
 			error = "Try reloading the app"
 			cursor.close()
 			return error
-	else
+	else:
 		return redirect(url_for('index'))
 	
 
