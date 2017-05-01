@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request, session, url_for, redirect
+from flask import Flask, render_template, request, session, url_for, redirect, jsonify
 import hashlib
 
 import psycopg2
@@ -164,11 +164,14 @@ def getNearbyUsers():
 			#this should really be JSON
 			response = []
 			for row in data:
-				# t = (row.)
-				print row[0]
+				t = {'username': row[0], 'latitude': row[1], 'longitude': row[2]}
+				print row[1]
+				response.append(t)
+
+			return jsonify(response)
 
 			#hopefully this works
-			return data
+			# return data
 		else:
 			error = "Try reloading the app"
 			cursor.close()
