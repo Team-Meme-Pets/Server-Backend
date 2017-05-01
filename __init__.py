@@ -151,6 +151,8 @@ def getNearbyUsers():
 			data = cursor.fetchall()
 			
 			cursor.close()
+			
+			#this should really be JSON
 			return data
 		else:
 			error = "Try reloading the app"
