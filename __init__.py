@@ -164,7 +164,7 @@ def getNearbyUsers():
 			#this should really be JSON
 			response = []
 			for row in data:
-				t = {'username': row[0], 'latitude': row[1], 'longitude': row[2]}
+				t = {'username': row[0], 'latitude': float(row[1]), 'longitude': float(row[2])}
 				print row[1]
 				response.append(t)
 
