@@ -93,7 +93,73 @@ def registerAuth():
         conn.commit()
         cursor.close()
         return redirect(url_for('index'))
+
+#send user's longitude and latitude data
+@app.route('/sendLoc', methods=['GET', 'POST'])
+def sendLoc():
+	lat = request.form['latitude']
+	lon = request.form['longitude']
+	cursor = conn.cursor()
+	
+	if('username' in session):
+		username = session['username']
+		query = 'SELECT * FROM Location WHERE username = %s'
+		cursor.execute(query, (username,))
+    
+		#stores the results in a variable
+		data = cursor.fetchone()
+		#use fetchall() if you are expecting more than 1 data row
+		if(data):
+			#If the previous query returns data, then user exists already
+			ins = 'UPDATE Location SET latitude = %f, longitude = %f WHERE username = %s'
+			cursor.execute(ins, (lat, lon, username))
+			conn.commit()
+			cursor.close()
+			return redirect(url_for('index'))
+		else:
+			#If the user doesn't exist add them
+			ins = 'INSERT INTO Location VALUES(%s, %f, %f)'
+			cursor.execute(ins, (username, lon, lat))
+			conn.commit()
+			cursor.close()
+			return redirect(url_for('index'))
+	else
+		return redirect(url_for('index'))
+	
+#send user's longitude and latitude data
+@app.route('/getNearbyUsers', methods=['GET', 'POST'])
+def getNearbyUsers():
+
+	cursor = conn.cursor()
+	
+	if('username' in session):
+		username = session['username']
+		query = 'SELECT * FROM Location WHERE username = %s'
+		cursor.execute(query, (username,))
+    
+		#stores the results in a variable
+		data = cursor.fetchone()
+		latitude = data[1]
+		longitude = data[2]
 		
+		#use fetchall() if you are expecting more than 1 data row
+		if(data):
+			#If the previous query returns data, then user exists already
+			ins = 'SELECT username FROM Location WHERE ABS(latitude-%f)<0.01 and ABS(longitude-%f<)<0.01'
+			cursor.execute(ins, (lat, lon))
+			
+			data = cursor.fetchall()
+			
+			cursor.close()
+			return data
+		else:
+			error = "Try reloading the app"
+			cursor.close()
+			return error
+	else
+		return redirect(url_for('index'))
+	
+
 @app.route('/logout')
 def logout():
     session.pop('username')
