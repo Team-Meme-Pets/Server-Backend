@@ -54,16 +54,16 @@ def loginAuth():
     error = None
 
     if(sha256_crypt.verify(password, data[0])):
-        #creates a session for the the user
-        #session is a built in
-        session['username'] = username
+		#creates a session for the the user
+		#session is a built in
+		session['username'] = username
 		print("Login Success: %s", username)
-        return redirect(url_for('index'))
+		return redirect(url_for('index'))
     else:
-        #returns an error message to the html page
-        error = 'Invalid login or username'
+		#returns an error message to the html page
+		error = 'Invalid login or username'
 		print("invalid login: %s", username)
-        return error
+		return error
 
 #Authenticates the register
 @app.route('/registerAuth', methods=['GET', 'POST'])
