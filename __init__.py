@@ -86,10 +86,10 @@ def registerAuth():
     #use fetchall() if you are expecting more than 1 data row
     error = None
     if(data):
-        #If the previous query returns data, then user exists
-        error = "This user already exists"
+		#If the previous query returns data, then user exists
+		error = "This user already exists"
 		print("This username exists already: %s", username)
-        return error
+		return error
     else:
         ins = 'INSERT INTO UserAccount VALUES(%s, %s, %s, %s, %s)'
         cursor.execute(ins, (username, password2, email, timestamp, timestamp))
@@ -241,9 +241,9 @@ def viewPets():
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
-    session.pop('username')
+	session.pop('username')
 	print("Logout Success")
-    return redirect('/')
+	return redirect('/')
 
 app.secret_key = 'ihaveasecret'
 if __name__ == "__main__":
