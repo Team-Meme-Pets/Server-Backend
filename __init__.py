@@ -100,11 +100,16 @@ def sendLoc():
 	lat = request.form['latitude']
 	lon = request.form['longitude']
 	cursor = conn.cursor()
+
+	cursor.execute('SELECT * FROM UserAccount')
+	data = cursor.fetchall()
+	print data
 	
 	if('username' in session):
 		username = session['username']
 		cursor.execute('SELECT * FROM Location')
 		print cursor.fetchall()
+		print "is this even working"
 
 		query = 'SELECT * FROM Location WHERE username = %s'
 		cursor.execute(query, (username,))
