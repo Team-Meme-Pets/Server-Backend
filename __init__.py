@@ -134,7 +134,7 @@ def sendLoc():
 	else:
 		return redirect(url_for('index'))
 	
-#send user's longitude and latitude data
+#gets users within 0.05 lat and lon
 @app.route('/getNearbyUsers', methods=['GET', 'POST'])
 def getNearbyUsers():
 
@@ -157,14 +157,14 @@ def getNearbyUsers():
 			cursor.execute(ins, (latitude, longitude))
 			
 			data = cursor.fetchall()
-			print data
+			#print data
 			
 			cursor.close()
 
 			response = []
 			for row in data:
 				t = {'username': row[0], 'latitude': float(row[1]), 'longitude': float(row[2])}
-				print row[1]
+				#print row[1]
 				response.append(t)
 
 			return jsonify(response)
@@ -174,7 +174,38 @@ def getNearbyUsers():
 			return error
 	else:
 		return redirect(url_for('index'))
+
+#get user's pets
+@app.route('/viewPets', methods=['GET', 'POST'])
+def viewPets():
+
+	cursor = conn.cursor()
 	
+	if('username' in session):
+		username = session['username']
+		query = 'SELECT * FROM HavePet WHERE username = %s'
+		cursor.execute(query, (username,))
+    
+		#stores the results in a variable
+		data = cursor.fetchall()
+		
+		#use fetchall() if you are expecting more than 1 data row
+		if(data):
+			cursor.close()
+
+			response = []
+			for row in data:
+				t = {'username': row[0], 'pet_name': row[1]}
+				response.append(t)
+
+			return jsonify(response)
+		else:
+			error = "Try reloading the app"
+			cursor.close()
+			return error
+	else:
+		return redirect(url_for('index'))
+
 
 @app.route('/logout')
 def logout():
