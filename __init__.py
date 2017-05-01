@@ -103,6 +103,9 @@ def sendLoc():
 	
 	if('username' in session):
 		username = session['username']
+        cursor.execute('SELECT * FROM Location')
+        print cursor.fetchall()
+
 		query = 'SELECT * FROM Location WHERE username = %s'
 		cursor.execute(query, (username,))
     
@@ -155,7 +158,7 @@ def getNearbyUsers():
 			#this should really be JSON
             # response = []
             # for row in data:
-                
+
 
             #hopefully this works
 			return data
