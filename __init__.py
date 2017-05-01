@@ -37,6 +37,8 @@ def loginAuth():
 	username = request.form['Username']
 	password = request.form['Password']
 	
+	print("user: %s    password: %s",username,password)
+	
 	#cursor used to send queries
 	cursor = conn.cursor()
 	#executes query
