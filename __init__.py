@@ -162,9 +162,10 @@ def getNearbyUsers():
 			cursor.close()
 			
 			#this should really be JSON
-            # response = []
-            # for row in data:
-
+            response = []
+            for row in data:
+        		# t = (row.)
+        		print row[0]
 
             #hopefully this works
 			return data
