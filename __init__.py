@@ -103,12 +103,12 @@ def sendLoc():
 	
 	if('username' in session):
 		username = session['username']
-        cursor.execute('SELECT * FROM Location')
-        print cursor.fetchall()
+		cursor.execute('SELECT * FROM Location')
+		print cursor.fetchall()
 
 		query = 'SELECT * FROM Location WHERE username = %s'
 		cursor.execute(query, (username,))
-    
+
 		#stores the results in a variable
 		data = cursor.fetchone()
 		#use fetchall() if you are expecting more than 1 data row
