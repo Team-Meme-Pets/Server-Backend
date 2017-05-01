@@ -46,11 +46,10 @@ def loginAuth():
     #stores the results in a variable
     data = cursor.fetchone()
     if(not data):
-        error = 'Invalid login or username'
+		error = 'Invalid login or username'
 		print("invalid username: %s", username)
-        return error
-    #use fetchall() if you are expecting more than 1 data row
-    
+		return error
+	
     cursor.close()
     error = None
 
