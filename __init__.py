@@ -235,7 +235,7 @@ def viewPets():
 		return redirect(url_for('index'))
 
 
-@app.route('/logout')
+@app.route('/logout', methods=['GET', 'POST'])
 def logout():
     session.pop('username')
     return redirect('/')
