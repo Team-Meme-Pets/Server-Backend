@@ -153,7 +153,7 @@ def getNearbyUsers():
 		#use fetchall() if you are expecting more than 1 data row
 		if(data):
 			#If the previous query returns data, then user exists already
-			ins = 'SELECT username FROM Location WHERE ABS(latitude-%s)<0.01 and ABS(longitude-%s)<0.01'
+			ins = 'SELECT username FROM Location WHERE ABS(latitude-%s)<0.05 and ABS(longitude-%s)<0.05'
 			cursor.execute(ins, (latitude, longitude))
 			
 			data = cursor.fetchall()
