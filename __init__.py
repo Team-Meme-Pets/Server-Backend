@@ -160,8 +160,7 @@ def getNearbyUsers():
 			print data
 			
 			cursor.close()
-			
-			#this should really be JSON
+
 			response = []
 			for row in data:
 				t = {'username': row[0], 'latitude': float(row[1]), 'longitude': float(row[2])}
@@ -169,9 +168,6 @@ def getNearbyUsers():
 				response.append(t)
 
 			return jsonify(response)
-
-			#hopefully this works
-			# return data
 		else:
 			error = "Try reloading the app"
 			cursor.close()
