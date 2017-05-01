@@ -119,14 +119,14 @@ def sendLoc():
 		#use fetchall() if you are expecting more than 1 data row
 		if(data):
 			#If the previous query returns data, then user exists already
-			ins = 'UPDATE Location SET latitude = %f, longitude = %f WHERE username = %s'
+			ins = 'UPDATE Location SET latitude = %s, longitude = %s WHERE username = %s'
 			cursor.execute(ins, (lat, lon, username))
 			conn.commit()
 			cursor.close()
 			return redirect(url_for('index'))
 		else:
 			#If the user doesn't exist add them
-			ins = 'INSERT INTO Location VALUES(%s, %f, %f)'
+			ins = 'INSERT INTO Location VALUES(%s, %s, %s)'
 			cursor.execute(ins, (username, lon, lat))
 			conn.commit()
 			cursor.close()
@@ -153,7 +153,7 @@ def getNearbyUsers():
 		#use fetchall() if you are expecting more than 1 data row
 		if(data):
 			#If the previous query returns data, then user exists already
-			ins = 'SELECT username FROM Location WHERE ABS(latitude-%f)<0.01 and ABS(longitude-%f<)<0.01'
+			ins = 'SELECT username FROM Location WHERE ABS(latitude-%s)<0.01 and ABS(longitude-%s<)<0.01'
 			cursor.execute(ins, (lat, lon))
 			
 			data = cursor.fetchall()
