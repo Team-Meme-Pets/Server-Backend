@@ -101,9 +101,9 @@ def sendLoc():
 	lon = request.form['longitude']
 	cursor = conn.cursor()
 
-	cursor.execute('SELECT * FROM UserAccount')
-	data = cursor.fetchall()
-	print data
+	#cursor.execute('SELECT * FROM UserAccount')
+	#data = cursor.fetchall()
+	#print data
 	
 	if('username' in session):
 		username = session['username']
@@ -172,6 +172,34 @@ def getNearbyUsers():
 			error = "Try reloading the app"
 			cursor.close()
 			return error
+	else:
+		return redirect(url_for('index'))
+
+#Add ownership of a pet to user
+@app.route('/addPet', methods=['GET', 'POST'])
+def addPet():
+	pet_name = request.form['pet_name']
+	
+	cursor = conn.cursor()
+	
+	if('username' in session):
+		username = session['username']
+		query = 'SELECT * FROM HavePet WHERE username = %s and pet_name = %s'
+		cursor.execute(query, (username, pet_name))
+
+		#stores the results in a variable
+		data = cursor.fetchone()
+		#use fetchall() if you are expecting more than 1 data row
+		if(data):
+			error = "You already have this pet"
+			cursor.close()
+			return error
+		else:
+			ins = 'INSERT INTO HavePet VALUES(%s, %s)'
+			cursor.execute(ins, (username, pet_name))
+			conn.commit()
+			cursor.close()
+			return redirect(url_for('index'))
 	else:
 		return redirect(url_for('index'))
 
