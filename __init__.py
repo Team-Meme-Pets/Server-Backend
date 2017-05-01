@@ -157,6 +157,7 @@ def getNearbyUsers():
 			cursor.execute(ins, (latitude, longitude))
 			
 			data = cursor.fetchall()
+			print data
 			
 			cursor.close()
 			
