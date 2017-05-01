@@ -47,6 +47,7 @@ def loginAuth():
     data = cursor.fetchone()
     if(not data):
         error = 'Invalid login or username'
+		print("invalid username: %s", username)
         return error
     #use fetchall() if you are expecting more than 1 data row
     
@@ -57,10 +58,12 @@ def loginAuth():
         #creates a session for the the user
         #session is a built in
         session['username'] = username
+		print("Login Success: %s", username)
         return redirect(url_for('index'))
     else:
         #returns an error message to the html page
         error = 'Invalid login or username'
+		print("invalid login: %s", username)
         return error
 
 #Authenticates the register
@@ -86,12 +89,14 @@ def registerAuth():
     if(data):
         #If the previous query returns data, then user exists
         error = "This user already exists"
+		print("This username exists already: %s", username)
         return error
     else:
         ins = 'INSERT INTO UserAccount VALUES(%s, %s, %s, %s, %s)'
         cursor.execute(ins, (username, password2, email, timestamp, timestamp))
         conn.commit()
         cursor.close()
+		print("Reg Success: %s", username)
         return redirect(url_for('index'))
 
 #send user's longitude and latitude data
