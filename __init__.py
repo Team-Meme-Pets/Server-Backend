@@ -123,7 +123,7 @@ def sendLoc():
 			conn.commit()
 			cursor.close()
 			return redirect(url_for('index'))
-	else
+	else:
 		return redirect(url_for('index'))
 	
 #send user's longitude and latitude data
@@ -160,7 +160,7 @@ def getNearbyUsers():
 			error = "Try reloading the app"
 			cursor.close()
 			return error
-	else
+	else:
 		return redirect(url_for('index'))
 	
 
