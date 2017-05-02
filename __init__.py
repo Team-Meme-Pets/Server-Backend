@@ -8,6 +8,7 @@ from passlib.hash import sha256_crypt
 import datetime
 
 app = Flask(__name__)
+Session(app)
 
 #configure postgreSQL
 conn_string = "host='0.0.0.0' dbname='bc1691' user='bc1691' password='StarszndFaults'"
@@ -59,6 +60,7 @@ def loginAuth():
 		#creates a session for the the user
 		#session is a built in
 		session['username'] = username
+		session['logged_in'] = True
 		print("Login Success: %s", username)
 		return "Success"
 	else:
@@ -247,6 +249,6 @@ def logout():
 	print("Logout Success")
 	return "Success"
 
-app.secret_key = 'ihaveasecret'
 if __name__ == "__main__":
+	app.secret_key = 'ihaveasecret'
 	app.run(host='0.0.0.0',port=9800)
