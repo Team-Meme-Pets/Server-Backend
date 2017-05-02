@@ -8,7 +8,7 @@ from passlib.hash import sha256_crypt
 import datetime
 
 app = Flask(__name__)
-Session(app)
+session(app)
 
 #configure postgreSQL
 conn_string = "host='0.0.0.0' dbname='bc1691' user='bc1691' password='StarszndFaults'"
